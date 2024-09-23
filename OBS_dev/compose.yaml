@@ -3,8 +3,8 @@ services:
     image: mysql:8
     environment:
       MYSQL_DATABASE: obs_personal_p
-      MYSQL_USER: cnicolas
-      MYSQL_PASSWORD: Basketp3l
-      MYSQL_ROOT_PASSWORD: Clemneosio
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT-PASSWORD}
     ports:
       - '3306:3306'
