@@ -1,14 +1,10 @@
 package com.obs.OBS.seekerTest;
-
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 import com.obs.OBS.jobSeeker.CONTRACT;
 import com.obs.OBS.jobSeeker.Seeker;
 import com.obs.OBS.jobSeeker.SeekerDAO;
 import com.obs.OBS.jobSeeker.SeekerDTO;
-import com.obs.OBS.jobSeeker.SeekerMapper;
-import com.obs.OBS.jobSeeker.SeekerService;
 import com.obs.OBS.jobSeeker.SeekerServiceImpl;
 import java.util.HashSet;
 import java.util.Optional;
@@ -28,8 +24,6 @@ public class SeekerTest {
   @Mock
   SeekerDAO dao;
 
-  @Mock
-  SeekerMapper mapper;
   @InjectMocks
   SeekerServiceImpl service;
   @Test
