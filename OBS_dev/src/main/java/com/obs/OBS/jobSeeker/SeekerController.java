@@ -22,7 +22,7 @@ public class SeekerController {
     return service.getById(id);
   }
 
-  @PostMapping("/{id}")
+  @PostMapping("/seeker")
   public void createSeeker(@RequestBody SeekerDTO dto){
     service.createSeeker(dto);
   }

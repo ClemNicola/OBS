@@ -2,7 +2,6 @@ package com.obs.OBS.document;
 
 import java.util.List;
 import java.util.Optional;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -32,7 +31,7 @@ public class DocumentDAOImpl implements DocumentDAO {
   }
 
   @Override
-  public List<Document> getAll() {
-    return (List<Document>) repository.findAll();
+  public List<Document> getAllBySeekerId(String seekerId) {
+    return repository.findBySeekerId(seekerId);
   }
 }

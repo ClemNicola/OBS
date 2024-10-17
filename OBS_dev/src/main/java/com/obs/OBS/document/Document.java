@@ -19,6 +19,7 @@ public class Document {
   private String id;
   private String name;
   private String type;
+  private long size;
   private byte[] data;
   @ManyToOne
   @JoinColumn(name = "ID_SEEKER", nullable = false)

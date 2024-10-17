@@ -8,12 +8,11 @@ import jakarta.persistence.JoinColumn;
 import java.util.Set;
 import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+
 
 @Builder
 @Data
 public class SeekerDTO {
-  private String id;
   private String firstName;
   private String lastName;
   private String phoneNumber;
@@ -30,9 +29,8 @@ public class SeekerDTO {
   public SeekerDTO() {
   }
 
-  public SeekerDTO(String id, String firstName, String lastName, String phoneNumber, String email, String password,
+  public SeekerDTO(String firstName, String lastName, String phoneNumber, String email, String password,
       CONTRACT contractType, Set<String> desiredLocations, String description) {
-    this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.phoneNumber = phoneNumber;
