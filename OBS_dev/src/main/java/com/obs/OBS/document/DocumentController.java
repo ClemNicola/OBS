@@ -37,7 +37,7 @@ public class DocumentController {
     return ResponseEntity.status(HttpStatus.OK).body("File uploaded successfully");
   }
 
-  @DeleteMapping("/document/{/id}")
+  @DeleteMapping("/document/{id}")
   public void deleteDocument(@PathVariable String id){
     service.deleteById(id);
   }
