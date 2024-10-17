@@ -1,5 +1,6 @@
 package com.obs.OBS.jobSeeker;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,11 @@ public class SeekerController {
   @GetMapping("/{id}")
   public SeekerDTO getById(@PathVariable String id){
     return service.getById(id);
+  }
+
+  @GetMapping("/seekers")
+  public List<SeekerDTO> getAll(){
+    return service.getAll();
   }
 
   @PostMapping("/seeker")

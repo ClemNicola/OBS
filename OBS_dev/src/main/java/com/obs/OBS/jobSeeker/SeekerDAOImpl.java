@@ -1,5 +1,6 @@
 package com.obs.OBS.jobSeeker;
 
+import java.util.List;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,11 @@ public class SeekerDAOImpl implements SeekerDAO {
   @Override
   public Optional<Seeker> getById(String id){
    return seekerRepository.findById(id);
+  }
+
+  @Override
+  public List<Seeker> getAll() {
+    return (List<Seeker>) seekerRepository.findAll();
   }
 
   @Override

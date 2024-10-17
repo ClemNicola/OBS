@@ -1,6 +1,7 @@
 package com.obs.OBS.jobSeeker;
 
 import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -55,5 +56,10 @@ public class SeekerServiceImpl implements SeekerService {
       seekerDAO.delete(id);
       log.info("Seeker successfully deleted");
     }
+  }
+
+  @Override
+  public List<SeekerDTO> getAll() {
+    return mapper.toDtos(seekerDAO.getAll());
   }
 }
