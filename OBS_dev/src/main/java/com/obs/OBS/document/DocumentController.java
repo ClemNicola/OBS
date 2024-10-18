@@ -25,19 +25,19 @@ public class DocumentController {
     return service.getById(id);
   }
 
-  @GetMapping("/documents/{seekerId}")
+  @GetMapping("/all/{seekerId}")
   public List<DocumentDTO> getAllDocuments(@PathVariable String seekerId){
     return service.getAllBySeekerId(seekerId);
   }
 
-  @PostMapping("/upload")
-  public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("seekerId") String seekerId)
+  @PostMapping("/upload/{seekerId}")
+  public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @PathVariable("seekerId") String seekerId)
       throws IOException {
     service.storeDocument(file, seekerId);
     return ResponseEntity.status(HttpStatus.OK).body("File uploaded successfully");
   }
 
-  @DeleteMapping("/document/{id}")
+  @DeleteMapping("/{id}")
   public void deleteDocument(@PathVariable String id){
     service.deleteById(id);
   }
