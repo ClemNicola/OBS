@@ -6,13 +6,16 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import java.util.Set;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
 
 @Builder
 @Data
+@AllArgsConstructor
 public class SeekerDTO {
+  private String id;
   private String firstName;
   private String lastName;
   private String phoneNumber;
@@ -29,15 +32,4 @@ public class SeekerDTO {
   public SeekerDTO() {
   }
 
-  public SeekerDTO(String firstName, String lastName, String phoneNumber, String email, String password,
-      CONTRACT contractType, Set<String> desiredLocations, String description) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.phoneNumber = phoneNumber;
-    this.email = email;
-    this.password = password;
-    this.contractType = contractType;
-    this.desiredLocations = desiredLocations;
-    this.description = description;
-  }
 }

@@ -1,12 +1,13 @@
 package com.obs.OBS.document;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
 @Builder
 @Data
-
+@AllArgsConstructor
 public class DocumentDTO {
   private String id;
   private String name;
@@ -18,12 +19,4 @@ public class DocumentDTO {
   public DocumentDTO() {
   }
 
-  public DocumentDTO(String id, String name, String type, long size, byte[] data, String seekerId) {
-    this.id = id;
-    this.name = name;
-    this.type = type;
-    this.size = size;
-    this.data = data;
-    this.seekerId = seekerId;
-  }
 }
