@@ -4,6 +4,7 @@ import com.obs.OBS.jobSeeker.Seeker;
 import com.obs.OBS.jobSeeker.SeekerDAO;
 import jakarta.persistence.EntityNotFoundException;
 import java.io.IOException;
+import java.text.Normalizer;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -61,6 +62,8 @@ public class DocumentServiceImpl implements DocumentService{
   }
 
   private String sanitizeFileName(String fileName){
-    return fileName.replaceAll("[^a-zA-Z0-9.-]", "_");
+    String normalized = Normalizer.normalize(fileName, Normalizer.Form.NFD);
+    String withoutAccent = normalized.replaceAll("\\p{InCOMBINING_DIACRITICAL_MARKS}+","");
+    return withoutAccent.replaceAll("[^a-zA-Z0-9.-]", "_");
   }
 }
