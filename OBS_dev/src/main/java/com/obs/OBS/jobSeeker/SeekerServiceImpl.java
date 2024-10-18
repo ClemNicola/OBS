@@ -26,10 +26,10 @@ public class SeekerServiceImpl implements SeekerService {
 
     Seeker seeker = mapper.toEntity(dto);
     Seeker savedSeeker = seekerDAO.create(seeker);
-    mapper.toDto(savedSeeker);
+   SeekerDTO savedSeekerDTO = mapper.toDto(savedSeeker);
     log.info("Seeker successfully created");
 
-    return dto;
+    return savedSeekerDTO;
   }
 
   @Override
@@ -55,6 +55,8 @@ public class SeekerServiceImpl implements SeekerService {
     if(seekerDAO.seekerIsExisting(id)){
       seekerDAO.delete(id);
       log.info("Seeker successfully deleted");
+    }else{
+      throw new RuntimeException("Can't delete seeker with id: " + id);
     }
   }
 
