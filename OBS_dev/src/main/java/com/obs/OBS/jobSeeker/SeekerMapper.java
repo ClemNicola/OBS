@@ -10,6 +10,7 @@ public class SeekerMapper {
 
   public SeekerDTO toDto (Seeker entity){
     SeekerDTO seekerDTO = new SeekerDTO();
+    seekerDTO.setId(entity.getId());
     seekerDTO.setFirstName(entity.getFirstName());
     seekerDTO.setLastName(entity.getLastName());
     seekerDTO.setPhoneNumber(entity.getPhoneNumber());
@@ -17,6 +18,7 @@ public class SeekerMapper {
     seekerDTO.setPassword(entity.getPassword());
     seekerDTO.setContractType(entity.getContractType());
     seekerDTO.setDesiredLocations(entity.getDesiredLocations());
+    seekerDTO.setDescription(entity.getDescription());
 
     return seekerDTO;
   }
@@ -30,6 +32,7 @@ public class SeekerMapper {
     seeker.setPassword(dto.getPassword());
     seeker.setContractType(dto.getContractType());
     seeker.setDesiredLocations(dto.getDesiredLocations());
+    seeker.setDescription(dto.getDescription());
 
     return seeker;
   }

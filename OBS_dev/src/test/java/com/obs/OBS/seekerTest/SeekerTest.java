@@ -49,7 +49,6 @@ public class SeekerTest {
   public void shouldUpdateUser(){
     String mockId = "1";
    SeekerDTO existingDTO = SeekerDTO.builder()
-       .id(mockId)
        .firstName("Clem")
        .lastName("Nico")
        .phoneNumber("06809979987")

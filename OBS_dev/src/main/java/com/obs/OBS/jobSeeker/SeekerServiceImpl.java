@@ -1,17 +1,18 @@
 package com.obs.OBS.jobSeeker;
 
 import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class SeekerServiceImpl implements SeekerService {
   private final SeekerDAO seekerDAO;
   private final SeekerMapper mapper;
-  private final Logger logger = LogManager.getLogger(SeekerServiceImpl.class);
+
   @Override
   public SeekerDTO getById(String id) {
     return mapper.toDto(seekerDAO.getById(id).orElseThrow(() -> new EntityNotFoundException("Can't find user with id " + id)));
@@ -25,10 +26,10 @@ public class SeekerServiceImpl implements SeekerService {
 
     Seeker seeker = mapper.toEntity(dto);
     Seeker savedSeeker = seekerDAO.create(seeker);
-    mapper.toDto(savedSeeker);
-    logger.info("Seeker successfully created");
+   SeekerDTO savedSeekerDTO = mapper.toDto(savedSeeker);
+    log.info("Seeker successfully created");
 
-    return dto;
+    return savedSeekerDTO;
   }
 
   @Override
@@ -44,7 +45,7 @@ public class SeekerServiceImpl implements SeekerService {
     currentSeeker.setDesiredLocations(dto.getDesiredLocations());
 
     seekerDAO.update(id, currentSeeker);
-    logger.info("Seeker successfully updated");
+    log.info("Seeker successfully updated");
 
     return dto;
   }
@@ -53,7 +54,14 @@ public class SeekerServiceImpl implements SeekerService {
   public void deleteSeeker(String id) {
     if(seekerDAO.seekerIsExisting(id)){
       seekerDAO.delete(id);
-      logger.info("Seeker successfully deleted");
+      log.info("Seeker successfully deleted");
+    }else{
+      throw new RuntimeException("Can't delete seeker with id: " + id);
     }
+  }
+
+  @Override
+  public List<SeekerDTO> getAll() {
+    return mapper.toDtos(seekerDAO.getAll());
   }
 }
