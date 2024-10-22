@@ -6,6 +6,7 @@ import com.obs.OBS.jobSeeker.Seeker;
 import com.obs.OBS.jobSeeker.SeekerDAO;
 import com.obs.OBS.jobSeeker.SeekerDTO;
 import com.obs.OBS.jobSeeker.SeekerServiceImpl;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -34,7 +35,7 @@ public class SeekerTest {
           .email("test@mail")
           .password("1234")
           .phoneNumber("0680997009")
-          .contractType(CONTRACT.FULL)
+          .contractType(Collections.singleton(CONTRACT.FULL))
           .desiredLocations(new HashSet<>(Set.of("Paris", "Ile de france")))
           .build();
 
@@ -53,7 +54,7 @@ public class SeekerTest {
        .lastName("Nico")
        .phoneNumber("06809979987")
        .email("clem@test")
-       .contractType(CONTRACT.FULL)
+       .contractType(Collections.singleton(CONTRACT.FULL))
        .desiredLocations(Set.of("Paris"))
        .description("")
        .build();
@@ -64,7 +65,7 @@ public class SeekerTest {
     existingSeeker.setLastName("Nico");
     existingSeeker.setPhoneNumber("06809979987");
     existingSeeker.setEmail("clem@test");
-    existingSeeker.setContractType(CONTRACT.FULL);
+    existingSeeker.setContractType(Collections.singleton(CONTRACT.FULL));
     existingSeeker.setDesiredLocations(Set.of("Paris"));
     existingSeeker.setDescription("");
 
