@@ -1,5 +1,6 @@
 package com.obs.OBS.jobSeeker;
 
+import com.obs.OBS.user.UserType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.EnumType;
@@ -22,9 +23,12 @@ public class SeekerDTO {
   private String email;
   private String password;
   @Enumerated(EnumType.STRING)
-  private CONTRACT contractType;
+  private UserType userType;
   @ElementCollection
-  @CollectionTable(name = "SEEKER_LOCATIONS", joinColumns = @JoinColumn(name = "ID_SEEKER"))
+  @Enumerated(EnumType.STRING)
+  private Set<CONTRACT> contractType;
+  @ElementCollection
+  @CollectionTable(name = "SEEKER_LOCATIONS", joinColumns = @JoinColumn(name = "ID_USER"))
   private Set<String> desiredLocations;
   private String description;
 

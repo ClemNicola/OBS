@@ -16,6 +16,7 @@ public class SeekerMapper {
     seekerDTO.setPhoneNumber(entity.getPhoneNumber());
     seekerDTO.setEmail(entity.getEmail());
     seekerDTO.setPassword(entity.getPassword());
+    seekerDTO.setUserType(entity.getType());
     seekerDTO.setContractType(entity.getContractType());
     seekerDTO.setDesiredLocations(entity.getDesiredLocations());
     seekerDTO.setDescription(entity.getDescription());
