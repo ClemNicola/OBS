@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path="/api/documents")
+@RequestMapping(path="/api/document")
 public class DocumentController {
   private final DocumentService service;
 
