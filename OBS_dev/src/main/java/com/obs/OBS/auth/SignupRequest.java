@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class SignupDTO {
+public class SignupRequest {
 
   @NotBlank(message = "First Name can't be empty")
   private String firstName;
@@ -19,9 +19,6 @@ public class SignupDTO {
   @NotBlank(message = "Last Name can't be empty")
   private String lastName;
 
-  @NotBlank(message = "Username can't be empty")
-  @Column(unique = true)
-  private String username;
 
   @NotBlank(message = "Email can't be empty")
   @Column(unique = true)
