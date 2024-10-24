@@ -31,6 +31,7 @@ public class SeekerDTO {
   @CollectionTable(name = "SEEKER_LOCATIONS", joinColumns = @JoinColumn(name = "ID_USER"))
   private Set<String> desiredLocations;
   private String description;
+  private String jwt;
 
 
   public SeekerDTO() {

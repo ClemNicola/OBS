@@ -11,4 +11,5 @@ public interface SeekerDAO {
   Seeker create(Seeker seeker);
   Seeker update(String id, Seeker seeker);
   void delete(String id);
+  Optional <Seeker> getByEmail(String email);
 }
