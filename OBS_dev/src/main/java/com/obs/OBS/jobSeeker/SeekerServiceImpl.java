@@ -1,9 +1,19 @@
 package com.obs.OBS.jobSeeker;
 
+import com.obs.OBS.auth.AuthResponse;
+import com.obs.OBS.auth.JWTUtil;
+import com.obs.OBS.auth.LoginRequest;
+import com.obs.OBS.auth.SignupRequest;
+import com.obs.OBS.user.User;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,6 +22,9 @@ import org.springframework.stereotype.Service;
 public class SeekerServiceImpl implements SeekerService {
   private final SeekerDAO seekerDAO;
   private final SeekerMapper mapper;
+  private final JWTUtil util;
+  private AuthenticationManager authenticationManager;
+  private PasswordEncoder encoder;
 
   @Override
   public SeekerDTO getById(String id) {
@@ -19,17 +32,26 @@ public class SeekerServiceImpl implements SeekerService {
   }
 
   @Override
-  public SeekerDTO createSeeker(SeekerDTO dto) {
-    if(seekerDAO.existsByEmail(dto.getEmail())){
+  public SeekerDTO createSeeker(SignupRequest request) {
+    if(seekerDAO.existsByEmail(request.getEmail())){
       throw new IllegalArgumentException("A user already exists with this email");
     }
 
-    Seeker seeker = mapper.toEntity(dto);
+    if(!request.getConfirmedPassword().equals(request.getPassword())){
+      throw new IllegalArgumentException("Password do not match");
+    }
+
+    Seeker seeker = new Seeker(
+      request.getFirstName(),
+      request.getLastName(),
+      request.getEmail(),
+      encoder.encode(request.getPassword())
+    );
+
     Seeker savedSeeker = seekerDAO.create(seeker);
-   SeekerDTO savedSeekerDTO = mapper.toDto(savedSeeker);
     log.info("Seeker successfully created");
 
-    return savedSeekerDTO;
+    return mapper.toDto(savedSeeker);
   }
 
   @Override
@@ -64,4 +86,21 @@ public class SeekerServiceImpl implements SeekerService {
   public List<SeekerDTO> getAll() {
     return mapper.toDtos(seekerDAO.getAll());
   }
+
+  @Override
+  public AuthResponse loginSeeker(LoginRequest loginRequest) {
+    Authentication authentication = authenticationManager.authenticate(
+        new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+
+    User existingUser = seekerDAO.getByEmail(loginRequest.getEmail()).orElseThrow(()
+        -> new EntityNotFoundException("Can'find user with email: " + loginRequest.getEmail()));
+
+    String jwt = util.generateToken(existingUser);
+
+
+    return new AuthResponse(jwt);
+  }
+
 }
