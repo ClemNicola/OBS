@@ -39,4 +39,11 @@ public class Seeker extends User {
   public Seeker(){
     super.setType(UserType.SEEKER);
   }
+
+  public Seeker(String firstName, String lastName, String email, String password){
+    super(email, password);
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
 }

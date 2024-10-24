@@ -44,4 +44,9 @@ public class SeekerDAOImpl implements SeekerDAO {
   public void delete(String id){
     seekerRepository.deleteById(id);
   }
+
+  @Override
+  public Optional<Seeker> getByEmail(String email) {
+    return seekerRepository.findSeekerByEmail(email);
+  }
 }
