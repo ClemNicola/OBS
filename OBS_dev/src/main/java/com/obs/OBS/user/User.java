@@ -30,4 +30,12 @@ public abstract class User {
   protected void setType(UserType type){
     this.type = type;
   }
+
+  public User(String email, String password) {
+    this.email = email;
+    this.password = password;
+  }
+
+  public User() {
+  }
 }
