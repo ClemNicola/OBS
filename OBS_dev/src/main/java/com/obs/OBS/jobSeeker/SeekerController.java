@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,19 +26,14 @@ public class SeekerController {
     return service.getById(id);
   }
 
-  @GetMapping("/seekers")
+  @GetMapping("/all")
   public List<SeekerDTO> getAll(){
     return service.getAll();
   }
 
-  @GetMapping("/seeker/{id}/documents")
+  @GetMapping("/{id}/documents")
   public List<DocumentDTO> getDocuments(@PathVariable String id){
     return documentService.getAllBySeekerId(id);
-  }
-
-  @PostMapping("/seeker")
-  public void createSeeker(@RequestBody SeekerDTO dto){
-    service.createSeeker(dto);
   }
 
   @PutMapping("/{id}")
