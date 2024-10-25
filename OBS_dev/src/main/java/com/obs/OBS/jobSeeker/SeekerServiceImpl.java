@@ -5,6 +5,7 @@ import com.obs.OBS.auth.JWTUtil;
 import com.obs.OBS.auth.LoginRequest;
 import com.obs.OBS.auth.SignupRequest;
 import com.obs.OBS.user.User;
+import com.obs.OBS.user.UserDAO;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -21,10 +22,11 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class SeekerServiceImpl implements SeekerService {
   private final SeekerDAO seekerDAO;
+  private final UserDAO userDAO;
   private final SeekerMapper mapper;
   private final JWTUtil util;
-  private AuthenticationManager authenticationManager;
-  private PasswordEncoder encoder;
+  private final AuthenticationManager authenticationManager;
+  private final PasswordEncoder encoder;
 
   @Override
   public SeekerDTO getById(String id) {
@@ -44,8 +46,12 @@ public class SeekerServiceImpl implements SeekerService {
     Seeker seeker = new Seeker(
       request.getFirstName(),
       request.getLastName(),
+      request.getPhoneNumber(),
       request.getEmail(),
-      encoder.encode(request.getPassword())
+      encoder.encode(request.getPassword()),
+      request.getRole(),
+      request.getContractType(),
+      request.getDesiredLocations()
     );
 
     Seeker savedSeeker = seekerDAO.create(seeker);
@@ -89,12 +95,13 @@ public class SeekerServiceImpl implements SeekerService {
 
   @Override
   public AuthResponse loginSeeker(LoginRequest loginRequest) {
-    Authentication authentication = authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
-    SecurityContextHolder.getContext().setAuthentication(authentication);
+      Authentication authentication = authenticationManager.authenticate(
+          new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
-    User existingUser = seekerDAO.getByEmail(loginRequest.getEmail()).orElseThrow(()
+      SecurityContextHolder.getContext().setAuthentication(authentication);
+
+    User existingUser = userDAO.findByEmail(loginRequest.getEmail()).orElseThrow(()
         -> new EntityNotFoundException("Can'find user with email: " + loginRequest.getEmail()));
 
     String jwt = util.generateToken(existingUser);
