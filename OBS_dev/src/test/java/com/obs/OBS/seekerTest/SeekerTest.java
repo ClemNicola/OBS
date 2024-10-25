@@ -1,6 +1,7 @@
 package com.obs.OBS.seekerTest;
 import static org.mockito.Mockito.when;
 
+import com.obs.OBS.auth.SignupRequest;
 import com.obs.OBS.jobSeeker.CONTRACT;
 import com.obs.OBS.jobSeeker.Seeker;
 import com.obs.OBS.jobSeeker.SeekerDAO;
@@ -29,7 +30,7 @@ public class SeekerTest {
   SeekerServiceImpl service;
   @Test
   public void shouldCreateSeekerWithSuccess(){
-      SeekerDTO expectedDto = SeekerDTO.builder()
+      SignupRequest request = SignupRequest.builder()
           .firstName("Clement")
           .lastName("Nicolas")
           .email("test@mail")
@@ -39,11 +40,11 @@ public class SeekerTest {
           .desiredLocations(new HashSet<>(Set.of("Paris", "Ile de france")))
           .build();
 
-      SeekerDTO savedSeeker = service.createSeeker(expectedDto);
+      SeekerDTO savedSeeker = service.createSeeker(request);
 
     Assertions.assertNotNull(savedSeeker);
     Assertions.assertNotNull(savedSeeker.getEmail());
-    Assertions.assertEquals(expectedDto.getEmail(), savedSeeker.getEmail());
+    Assertions.assertEquals(request.getEmail(), savedSeeker.getEmail());
   }
 
   @Test
