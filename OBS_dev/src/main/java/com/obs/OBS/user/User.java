@@ -31,9 +31,10 @@ public abstract class User {
     this.type = type;
   }
 
-  public User(String email, String password) {
+  public User(String email, String password, UserType type) {
     this.email = email;
     this.password = password;
+    this.type = type;
   }
 
   public User() {
