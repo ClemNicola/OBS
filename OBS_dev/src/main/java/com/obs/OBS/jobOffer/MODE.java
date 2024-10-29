@@ -1,5 +1,14 @@
 package com.obs.OBS.jobOffer;
 
+import lombok.Getter;
+
+@Getter
 public enum MODE {
-  //teletravail hybride office
+  REMOTE("Télétravail"), HYBRID("Hybride"), OFFICE("Présentiel");
+
+  public final String label;
+  MODE(String label){
+    this.label = label;
+  }
+
 }

@@ -1,5 +1,13 @@
 package com.obs.OBS.jobOffer;
 
+import lombok.Getter;
+
+@Getter
 public enum EXPERIENCE {
-  //Junior, senior, mid, lead...
+  SENIOR("Senior"), CLEVEL("C-level"), RETRAINING("Reconversion");
+  public final String label;
+  EXPERIENCE(String label){
+    this.label = label;
+  }
+
 }
