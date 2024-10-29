@@ -24,7 +24,7 @@ public class Document {
   @Lob
   private byte[] data;
   @ManyToOne
-  @JoinColumn(name = "ID_SEEKER", nullable = false)
+  @JoinColumn(name = "ID_USER", referencedColumnName =  "ID_USER", nullable = false)
   private Seeker seeker;
 
 }

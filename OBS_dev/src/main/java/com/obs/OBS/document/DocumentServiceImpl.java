@@ -27,6 +27,10 @@ public class DocumentServiceImpl implements DocumentService{
 
   @Override
   public List<DocumentDTO> getAllBySeekerId(String seekerId) {
+    if(!seekerDAO.seekerIsExisting(seekerId)){
+      throw new EntityNotFoundException("Can't find seeker with id: " + seekerId);
+    }
+
     return  mapper.toDtos(dao.getAllBySeekerId(seekerId));
   }
 

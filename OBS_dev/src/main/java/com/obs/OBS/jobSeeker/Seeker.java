@@ -1,16 +1,14 @@
 package com.obs.OBS.jobSeeker;
 
 import com.obs.OBS.document.Document;
+import com.obs.OBS.user.User;
+import com.obs.OBS.user.UserType;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
-import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -22,26 +20,33 @@ import lombok.Data;
 @Entity
 @Table(name = "JOB_SEEKER")
 @Data
-public class Seeker {
-  @Id
-  @Column(name = "ID_SEEKER")
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private String id;
+public class Seeker extends User {
 
   private String firstName;
   private String lastName;
   private String phoneNumber;
-  private String email;
-  private String password;
-  @Enumerated(EnumType.STRING)
-  private CONTRACT contractType;
   @ElementCollection
-  @CollectionTable(name = "SEEKER_LOCATIONS", joinColumns = @JoinColumn(name = "ID_SEEKER"))
+  @Enumerated(EnumType.STRING)
+  private Set<CONTRACT> contractType;
+  @ElementCollection
+  @CollectionTable(name = "SEEKER_LOCATIONS", joinColumns = @JoinColumn(name = "ID_USER"))
   private Set<String> desiredLocations;
   private String description;
 
   @OneToMany(mappedBy = "seeker", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Document> documents = new ArrayList<>();
 
+  public Seeker(){
+    super.setType(UserType.SEEKER);
+  }
+
+  public Seeker(String firstName, String lastName,String phoneNumber, String email, String password, UserType type, Set<CONTRACT> contract, Set<String> desiredLocations){
+    super(email, password, type);
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.phoneNumber = phoneNumber;
+    this.contractType = contract;
+    this.desiredLocations = desiredLocations;
+  }
 
 }

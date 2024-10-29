@@ -1,11 +1,13 @@
 package com.obs.OBS.seekerTest;
 import static org.mockito.Mockito.when;
 
+import com.obs.OBS.auth.SignupRequest;
 import com.obs.OBS.jobSeeker.CONTRACT;
 import com.obs.OBS.jobSeeker.Seeker;
 import com.obs.OBS.jobSeeker.SeekerDAO;
 import com.obs.OBS.jobSeeker.SeekerDTO;
 import com.obs.OBS.jobSeeker.SeekerServiceImpl;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -28,21 +30,21 @@ public class SeekerTest {
   SeekerServiceImpl service;
   @Test
   public void shouldCreateSeekerWithSuccess(){
-      SeekerDTO expectedDto = SeekerDTO.builder()
+      SignupRequest request = SignupRequest.builder()
           .firstName("Clement")
           .lastName("Nicolas")
           .email("test@mail")
           .password("1234")
           .phoneNumber("0680997009")
-          .contractType(CONTRACT.FULL)
+          .contractType(Collections.singleton(CONTRACT.FULL))
           .desiredLocations(new HashSet<>(Set.of("Paris", "Ile de france")))
           .build();
 
-      SeekerDTO savedSeeker = service.createSeeker(expectedDto);
+      SeekerDTO savedSeeker = service.createSeeker(request);
 
     Assertions.assertNotNull(savedSeeker);
     Assertions.assertNotNull(savedSeeker.getEmail());
-    Assertions.assertEquals(expectedDto.getEmail(), savedSeeker.getEmail());
+    Assertions.assertEquals(request.getEmail(), savedSeeker.getEmail());
   }
 
   @Test
@@ -53,7 +55,7 @@ public class SeekerTest {
        .lastName("Nico")
        .phoneNumber("06809979987")
        .email("clem@test")
-       .contractType(CONTRACT.FULL)
+       .contractType(Collections.singleton(CONTRACT.FULL))
        .desiredLocations(Set.of("Paris"))
        .description("")
        .build();
@@ -64,7 +66,7 @@ public class SeekerTest {
     existingSeeker.setLastName("Nico");
     existingSeeker.setPhoneNumber("06809979987");
     existingSeeker.setEmail("clem@test");
-    existingSeeker.setContractType(CONTRACT.FULL);
+    existingSeeker.setContractType(Collections.singleton(CONTRACT.FULL));
     existingSeeker.setDesiredLocations(Set.of("Paris"));
     existingSeeker.setDescription("");
 
