@@ -42,7 +42,4 @@ public class SeekerMapper {
     return entities.stream().map(this::toDto).collect(Collectors.toList());
   }
 
-  public List<Seeker> toEntities (Collection<SeekerDTO> dtos){
-    return dtos.stream().map(this::toEntity).collect(Collectors.toList());
-  }
 }
