@@ -1,12 +1,13 @@
 package com.obs.OBS.company;
 
 import com.obs.OBS.jobOffer.JobOffer;
+import com.obs.OBS.user.User;
+import com.obs.OBS.user.UserType;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.ArrayList;
@@ -16,14 +17,13 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "COMPANY")
-public class Company {
-  @Id
+public class Company extends User {
   private String name;
   private String description;
   @Enumerated(value = EnumType.STRING)
   private SECTORS sectors;
   @Enumerated(value = EnumType.STRING)
-  private COMPANYTYPE type;
+  private COMPANYTYPE companyType;
   private String address;
   private String city;
   private String country;
@@ -34,4 +34,25 @@ public class Company {
   private String adminName;
   @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   private List<JobOffer> jobOffers = new ArrayList<>();
+
+
+  public Company(){super.setType(UserType.COMPANY);}
+
+  public Company(String adminName, String email, String password, UserType type, String name, SECTORS sectors,
+      COMPANYTYPE companyType, String companyEmail, String siret, String webUrl, String address, String city,
+      String country, String zip) {
+    super(email, password, type);
+    this.adminName = adminName;
+    this.name = name;
+    this.sectors = sectors;
+    this.companyType = companyType;
+    this.companyEmail = companyEmail;
+    this.siret = siret;
+    this.webUrl = webUrl;
+    this.address = address;
+    this.city = city;
+    this.country = country;
+    this.zip = zip;
+
+  }
 }
