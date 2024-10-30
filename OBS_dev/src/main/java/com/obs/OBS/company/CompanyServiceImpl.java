@@ -78,7 +78,6 @@ public class CompanyServiceImpl implements CompanyService {
         signupRequest.getAdminName(),
         signupRequest.getEmail(),
         encoder.encode(signupRequest.getPassword()),
-        signupRequest.getRole(),
         signupRequest.getName(),
         signupRequest.getSectors(),
         signupRequest.getCompanyType(),

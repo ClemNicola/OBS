@@ -2,7 +2,6 @@ package com.obs.OBS.auth;
 
 import com.obs.OBS.company.COMPANYTYPE;
 import com.obs.OBS.company.SECTORS;
-import com.obs.OBS.user.UserType;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -29,7 +28,6 @@ public class CompanySignupRequest {
 
   private String confirmedPassword;
 
-  private UserType role;
   private String name;
   private String description;
   @Enumerated(value = EnumType.STRING)

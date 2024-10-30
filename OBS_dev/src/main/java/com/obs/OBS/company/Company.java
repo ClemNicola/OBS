@@ -38,10 +38,10 @@ public class Company extends User {
 
   public Company(){super.setType(UserType.COMPANY);}
 
-  public Company(String adminName, String email, String password, UserType type, String name, SECTORS sectors,
+  public Company(String adminName, String email, String password, String name, SECTORS sectors,
       COMPANYTYPE companyType, String companyEmail, String siret, String webUrl, String address, String city,
       String country, String zip) {
-    super(email, password, type);
+    super(email, password);
     this.adminName = adminName;
     this.name = name;
     this.sectors = sectors;
@@ -53,6 +53,7 @@ public class Company extends User {
     this.city = city;
     this.country = country;
     this.zip = zip;
+    super.setType(UserType.COMPANY);
 
   }
 }
