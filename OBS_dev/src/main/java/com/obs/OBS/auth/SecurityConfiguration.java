@@ -23,7 +23,7 @@ public class SecurityConfiguration  {
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll()
-            .requestMatchers("/seeker/**").hasRole("JOBSEEKER")
+            .requestMatchers("/seeker/**").hasRole("SEEKER")
             .anyRequest().authenticated())
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
