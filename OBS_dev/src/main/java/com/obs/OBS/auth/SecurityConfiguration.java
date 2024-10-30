@@ -24,6 +24,7 @@ public class SecurityConfiguration  {
     http.csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll()
             .requestMatchers("/seeker/**").hasRole("SEEKER")
+            .requestMatchers("/company/**").hasRole("COMPANY")
             .anyRequest().authenticated())
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
