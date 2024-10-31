@@ -27,39 +27,38 @@ public class JWTFilter extends OncePerRequestFilter {
   private UserDetailsServiceImpl userDetailsService;
 
   @Override
-  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-      throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+        throws ServletException, IOException {
 
-    String token = getJWTFromRequest(request);
+      String token = getJWTFromRequest(request);
 
-    if(StringUtils.hasText(token) && util.validateToken(token)){
-      String email = util.getEmailFromJwt(token);
+      if(StringUtils.hasText(token) && util.validateToken(token)){
+        String email = util.getEmailFromJwt(token);
 
-      List<String> roles = util.getRolesFromJwt(token);
+        List<String> roles = util.getRolesFromJwt(token);
+        List<GrantedAuthority> authorities = roles.stream().map(
+                role -> new SimpleGrantedAuthority("ROLE_" + role))
+            .collect(Collectors.toList());
+        UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
-      List<GrantedAuthority> authorities = roles.stream().map(
-              SimpleGrantedAuthority::new)
-          .collect(Collectors.toList());
-      UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+        UsernamePasswordAuthenticationToken authenticationFilter =
+            new UsernamePasswordAuthenticationToken(
+                  userDetails, null, authorities);
 
-      UsernamePasswordAuthenticationToken authenticationFilter =
-          new UsernamePasswordAuthenticationToken(
-                userDetails, null, authorities);
+        authenticationFilter.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-      authenticationFilter.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(authenticationFilter);
+      }
 
-      SecurityContextHolder.getContext().setAuthentication(authenticationFilter);
+      filterChain.doFilter(request, response);
     }
 
-    filterChain.doFilter(request, response);
-  }
-
-  private String getJWTFromRequest(HttpServletRequest request){
-    String bearer = request.getHeader("Authorization");
-    if(StringUtils.hasText(bearer) && bearer.startsWith(BEARER_PREFIX)) {
-      return bearer.substring(BEARER_PREFIX.length());
+    private String getJWTFromRequest(HttpServletRequest request){
+        String bearer = request.getHeader("Authorization");
+        if(StringUtils.hasText(bearer) && bearer.startsWith(BEARER_PREFIX)) {
+          return bearer.substring(BEARER_PREFIX.length());
+        }
+        return null;
     }
-    return null;
+    private static final String BEARER_PREFIX = "Bearer ";
   }
-  private static final String BEARER_PREFIX = "Bearer ";
-}

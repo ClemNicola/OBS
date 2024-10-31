@@ -10,6 +10,7 @@ import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import java.security.Key;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -39,17 +40,18 @@ public class JWTUtil {
     return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
   }
   public String getEmailFromJwt(String token){
-    return Jwts.parserBuilder().build().setSigningKey(key()).parseClaimsJws(token).getBody().getSubject();
+    return Jwts.parserBuilder().setSigningKey(key()).build().parseClaimsJws(token).getBody().getSubject();
   }
 
   public List<String> getRolesFromJwt(String token){
-    Claims claims = Jwts.parserBuilder().build().setSigningKey(key()).parseClaimsJws(token).getBody();
-    return  claims.get("role", List.class);
+      Claims claims = Jwts.parserBuilder().setSigningKey(key()).build().parseClaimsJws(token).getBody();
+      String role = claims.get("role", String.class);
+    return Collections.singletonList(role);
   }
 
   public boolean validateToken(String token){
     try {
-      Jwts.parserBuilder().setSigningKey(key()).build().parseClaimsJwt(token);
+      Jwts.parserBuilder().setSigningKey(key()).build().parseClaimsJws(token);
       return true;
     }catch(MalformedJwtException e){
       log.error("Invalid JWT token: {} ", e.getMessage());

@@ -40,7 +40,7 @@ public class SeekerServiceImpl implements SeekerService {
     }
 
     if(!request.getConfirmedPassword().equals(request.getPassword())){
-      throw new IllegalArgumentException("Password do not match");
+      throw new IllegalArgumentException("Passwords do not match");
     }
 
     Seeker seeker = new Seeker(
@@ -49,7 +49,6 @@ public class SeekerServiceImpl implements SeekerService {
       request.getPhoneNumber(),
       request.getEmail(),
       encoder.encode(request.getPassword()),
-      request.getRole(),
       request.getContractType(),
       request.getDesiredLocations()
     );

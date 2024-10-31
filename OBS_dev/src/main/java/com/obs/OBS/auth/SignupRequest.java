@@ -1,7 +1,6 @@
 package com.obs.OBS.auth;
 
 import com.obs.OBS.jobSeeker.CONTRACT;
-import com.obs.OBS.user.UserType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -38,8 +37,6 @@ public class SignupRequest {
   private String password;
 
   private String confirmedPassword;
-
-  private UserType role;
 
   @ElementCollection
   @Enumerated(EnumType.STRING)

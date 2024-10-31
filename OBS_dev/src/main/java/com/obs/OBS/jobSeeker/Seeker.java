@@ -36,17 +36,16 @@ public class Seeker extends User {
   @OneToMany(mappedBy = "seeker", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Document> documents = new ArrayList<>();
 
-  public Seeker(){
-    super.setType(UserType.SEEKER);
-  }
-
-  public Seeker(String firstName, String lastName,String phoneNumber, String email, String password, UserType type, Set<CONTRACT> contract, Set<String> desiredLocations){
-    super(email, password, type);
+  public Seeker(String firstName, String lastName,String phoneNumber, String email, String password, Set<CONTRACT> contract, Set<String> desiredLocations){
+    super(email, password);
     this.firstName = firstName;
     this.lastName = lastName;
     this.phoneNumber = phoneNumber;
     this.contractType = contract;
     this.desiredLocations = desiredLocations;
+    super.setType(UserType.SEEKER);
   }
 
+  public Seeker() {
+  }
 }
