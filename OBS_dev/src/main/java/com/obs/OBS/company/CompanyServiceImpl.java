@@ -58,10 +58,10 @@ public class CompanyServiceImpl implements CompanyService {
     currentCompany.setCountry(dto.getCountry());
     currentCompany.setZip(dto.getZip());
 
-    dao.update(id, currentCompany);
+    Company updatedCompany = dao.update(id, currentCompany);
     log.info("Company successfully updated");
+    return mapper.toDTO(updatedCompany);
 
-    return dto;
   }
 
   @Override
