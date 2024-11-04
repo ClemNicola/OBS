@@ -51,4 +51,9 @@ public class JobDAOImpl implements JobDAO{
   public void delete(String id) {
     repository.deleteById(id);
   }
+
+  @Override
+  public boolean existingJobOffer(String id) {
+    return repository.existsById(id);
+  }
 }

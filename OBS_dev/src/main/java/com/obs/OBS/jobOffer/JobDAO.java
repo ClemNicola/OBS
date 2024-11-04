@@ -15,4 +15,5 @@ public interface JobDAO {
   JobOffer create(JobOffer job);
   JobOffer update(String id, JobOffer job);
   void delete(String id);
+  boolean existingJobOffer(String id);
 }
