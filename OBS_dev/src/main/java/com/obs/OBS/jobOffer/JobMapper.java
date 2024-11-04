@@ -9,6 +9,7 @@ public class JobMapper {
 
   public JobDTO toDTO(JobOffer job){
     JobDTO dto = new JobDTO();
+    dto.setId(job.getId());
     dto.setCompanyId(job.getCompany().getId());
     dto.setJobTitle(job.getJobTitle());
     dto.setDescription(job.getDescription());

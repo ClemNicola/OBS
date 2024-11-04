@@ -16,6 +16,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class JobDTO {
+  private String id;
   private String companyId;
   private String jobTitle;
   private String description;
