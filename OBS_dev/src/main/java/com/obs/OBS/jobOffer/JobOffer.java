@@ -44,7 +44,7 @@ public class JobOffer {
   @Enumerated(value = EnumType.STRING)
   private EXPERIENCE experience;
   @Enumerated(value = EnumType.STRING)
-  private STATUS status;
+  private STATUS status = STATUS.OPEN;
   @ElementCollection
   @CollectionTable(name = "TAGS", joinColumns = @JoinColumn(name = "ID_JOB_OFFER"))
   private Set<String> tags;
@@ -53,4 +53,28 @@ public class JobOffer {
   @ManyToOne
   @JoinColumn(name = "ID_USER", nullable = false)
   private Company company;
+
+  public JobOffer(String jobTitle, String description, Set<String> skills, Date publicationDate, String city, String country,
+      MODE mode, CONTRACT contract, String contractDuration, Integer minSalary, Integer maxSalary, EXPERIENCE experience,
+      STATUS status, Set<String> tags, Integer numberOfApplicants) {
+    this.jobTitle = jobTitle;
+    this.description = description;
+    this.skills = skills;
+    this.publicationDate = publicationDate;
+    this.city = city;
+    this.country = country;
+    this.mode = mode;
+    this.contract = contract;
+    this.contractDuration = contractDuration;
+    this.minSalary = minSalary;
+    this.maxSalary = maxSalary;
+    this.experience = experience;
+    this.status = status;
+    this.tags = tags;
+    this.numberOfApplicants = numberOfApplicants;
+  }
+
+  public JobOffer() {
+
+  }
 }
