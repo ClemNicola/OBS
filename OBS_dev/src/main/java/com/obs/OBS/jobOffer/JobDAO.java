@@ -12,6 +12,7 @@ public interface JobDAO {
   Page<JobOffer> getAllJobsByCompanyId(String companyId, Pageable pageable);
   Page<JobOffer> getJobBySkills(String skills, Pageable pageable);
   Page<JobOffer> getJobByTitle(String jobTitle, Pageable pageable);
+  Page<JobOffer> getAllJobs(Pageable pageable);
   JobOffer create(JobOffer job);
   JobOffer update(String id, JobOffer job);
   void delete(String id);

@@ -38,6 +38,11 @@ public class JobDAOImpl implements JobDAO{
   }
 
   @Override
+  public Page<JobOffer> getAllJobs(Pageable pageable) {
+    return repository.findAllJobOffer(pageable);
+  }
+
+  @Override
   public JobOffer create(JobOffer job) {
     return repository.save(job);
   }
