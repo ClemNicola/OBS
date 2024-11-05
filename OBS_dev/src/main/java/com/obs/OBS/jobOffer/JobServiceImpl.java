@@ -94,6 +94,11 @@ public class JobServiceImpl implements JobService{
     return jobOffers.map(mapper::toDTO);
   }
 
+  @Override
+  public Page<JobDTO> getAllJobs(Pageable pageable) {
+     Page<JobOffer> jobOfferPage = dao.getAllJobs(pageable);
+     return jobOfferPage.map(mapper::toDTO);
+  }
 
 
   @Override

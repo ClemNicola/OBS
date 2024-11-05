@@ -8,6 +8,7 @@ public interface JobService {
   JobDTO getJobById(String id);
   JobDTO createJobOffer(JobDTO dto);
   Page<JobDTO> getAllJobsByCompanyId(String companyId, Pageable pageable);
+  Page<JobDTO> getAllJobs(Pageable pageable);
   void deleteJobOffer(String id);
   JobDTO updateJobOffer(String id, JobDTO dto);
   Page<JobDTO> getJobByTags(List<String> tag, Pageable pageable);
