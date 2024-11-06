@@ -12,5 +12,5 @@ public interface JobRepository extends CrudRepository<JobOffer, String> {
   Page<JobOffer> findJobOfferByJobTitle(String title, Pageable pageable);
   Page<JobOffer> findJobOfferByCompanyId(String id, Pageable pageable);
   Page<JobOffer> findJobOfferBySkillsContains(String skill, Pageable pageable);
-  Page<JobOffer> findAllJobOffer(Pageable pageable);
+  Page<JobOffer> findAll(Pageable pageable);
 }

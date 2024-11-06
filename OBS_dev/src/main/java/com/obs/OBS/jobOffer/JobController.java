@@ -24,7 +24,7 @@ public class JobController {
     return service.getJobById(id);
   }
 
-  @GetMapping("/{companyId}")
+  @GetMapping("/all/{companyId}")
   public Page<JobDTO> getJobsByCompanyId(
       @PathVariable String companyId,
       @RequestParam(defaultValue = "0") int page,
