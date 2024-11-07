@@ -1,5 +1,7 @@
 package com.obs.OBS.jobOffer;
 
+import com.obs.OBS.elasticSearch.Document.JobOfferDocument;
+import com.obs.OBS.elasticSearch.Repository.JobOfferRepository;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class JobDAOImpl implements JobDAO{
   private final JobRepository repository;
+  private final JobOfferRepository jobOfferDocRepository;
 
   @Override
   public Optional<JobOffer> getJobById(String id) {
@@ -18,8 +21,8 @@ public class JobDAOImpl implements JobDAO{
   }
 
   @Override
-  public Page<JobOffer> getJobByTags(List<String> tag, Pageable pageable) {
-    return repository.findJobOfferByTagsIn(tag,pageable);
+  public Page<JobOfferDocument> getJobByTags(List<String> tag, Pageable pageable) {
+    return jobOfferDocRepository.findJobOfferDocumentByTagsIn(tag, pageable);
   }
 
   @Override
@@ -28,13 +31,18 @@ public class JobDAOImpl implements JobDAO{
   }
 
   @Override
-  public Page<JobOffer> getJobBySkills(String skills, Pageable pageable) {
-    return repository.findJobOfferBySkillsContains(skills, pageable);
+  public Page<JobOfferDocument> getJobBySkills(String skills, Pageable pageable) {
+    return jobOfferDocRepository.findJobOfferDocumentBySkillsContaining(skills, pageable);
   }
 
   @Override
-  public Page<JobOffer> getJobByTitle(String jobTitle, Pageable pageable) {
-    return repository.findJobOfferByJobTitle(jobTitle, pageable);
+  public Page<JobOfferDocument> getJobByTitle(String jobTitle, Pageable pageable) {
+    return jobOfferDocRepository.findJobOfferDocumentByJobTitleContaining(jobTitle, pageable);
+  }
+
+  @Override
+  public Page<JobOfferDocument> getJobByCity(String city, Pageable pageable) {
+    return jobOfferDocRepository.findJobOfferDocumentByCityContaining(city, pageable);
   }
 
   @Override
