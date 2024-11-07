@@ -1,5 +1,6 @@
 package com.obs.OBS.jobOffer;
 
+import com.obs.OBS.elasticSearch.Document.JobOfferDocument;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
@@ -54,4 +55,28 @@ public class JobMapper {
   public List<JobDTO> toDTOs (List<JobOffer> job){
     return job.stream().map(this::toDTO).collect(Collectors.toList());
   }
+
+  public JobDTO DocumentToDTO(JobOfferDocument document){
+    JobDTO dto = new JobDTO();
+    dto.setId(document.getId());
+    dto.setCompanyId(document.getCompany().getId());
+    dto.setJobTitle(document.getJobTitle());
+    dto.setDescription(document.getDescription());
+    dto.setSkills(document.getSkills());
+    dto.setPublicationDate(document.getPublicationDate());
+    dto.setCity(document.getCity());
+    dto.setCountry(document.getCountry());
+    dto.setMode(document.getMode());
+    dto.setContract(document.getContract());
+    dto.setContractDuration(document.getContractDuration());
+    dto.setMinSalary(document.getMinSalary());
+    dto.setMaxSalary(document.getMaxSalary());
+    dto.setExperience(document.getExperience());
+    dto.setStatus(document.getStatus());
+    dto.setTags(document.getTags());
+    dto.setNumberOfApplicants(document.getNumberOfApplicants());
+
+    return dto;
+  }
+
 }
