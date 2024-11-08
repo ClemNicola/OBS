@@ -59,11 +59,14 @@ public class JobOfferDocument {
   @Field(type = FieldType.Keyword)
   private STATUS status = STATUS.OPEN;
 
-  @Field(type = FieldType.Keyword, analyzer = "autocomplete_index", searchAnalyzer = "autocomplete_search")
+  @Field(type = FieldType.Keyword)
   private Set<String> tags;
 
   @Field(type = FieldType.Integer)
   private Integer numberOfApplicants;
+
+  @Field(type = FieldType.Keyword, analyzer = "autocomplete_index", searchAnalyzer = "autocomplete_search")
+  private String companyName;
 
   @Field(type = FieldType.Object)
   private CompanyDocument company;
