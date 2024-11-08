@@ -59,6 +59,7 @@ public class JobMapper {
   public JobDTO DocumentToDTO(JobOfferDocument document){
     JobDTO dto = new JobDTO();
     dto.setId(document.getId());
+    dto.setCompanyName(document.getCompanyName());
     dto.setCompanyId(document.getCompany().getId());
     dto.setJobTitle(document.getJobTitle());
     dto.setDescription(document.getDescription());
@@ -77,6 +78,29 @@ public class JobMapper {
     dto.setNumberOfApplicants(document.getNumberOfApplicants());
 
     return dto;
+  }
+
+  public JobOfferDocument toDocument(JobOffer jobOffer){
+    JobOfferDocument jobOfferDocument = new JobOfferDocument();
+    jobOfferDocument.setId(jobOffer.getId());
+    jobOfferDocument.setCompanyName(jobOffer.getCompany().getName());
+    jobOfferDocument.setJobTitle(jobOffer.getJobTitle());
+    jobOfferDocument.setDescription(jobOffer.getDescription());
+    jobOfferDocument.setSkills(jobOffer.getSkills());
+    jobOfferDocument.setPublicationDate(jobOffer.getPublicationDate());
+    jobOfferDocument.setCity(jobOffer.getCity());
+    jobOfferDocument.setCountry(jobOffer.getCountry());
+    jobOfferDocument.setMode(jobOffer.getMode());
+    jobOfferDocument.setContract(jobOffer.getContract());
+    jobOfferDocument.setContractDuration(jobOffer.getContractDuration());
+    jobOfferDocument.setMinSalary(jobOffer.getMinSalary());
+    jobOfferDocument.setMaxSalary(jobOffer.getMaxSalary());
+    jobOfferDocument.setExperience(jobOffer.getExperience());
+    jobOfferDocument.setStatus(jobOffer.getStatus());
+    jobOfferDocument.setTags(jobOffer.getTags());
+    jobOfferDocument.setNumberOfApplicants(jobOffer.getNumberOfApplicants());
+
+    return jobOfferDocument;
   }
 
 }
