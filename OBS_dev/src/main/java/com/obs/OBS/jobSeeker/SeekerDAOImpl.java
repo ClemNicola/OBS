@@ -1,5 +1,7 @@
 package com.obs.OBS.jobSeeker;
 
+import com.obs.OBS.elasticSearch.Document.SeekerDocument;
+import com.obs.OBS.elasticSearch.Repository.SeekerDocRepository;
 import com.obs.OBS.user.UserType;
 import java.util.List;
 import java.util.Optional;
@@ -9,8 +11,10 @@ import org.springframework.stereotype.Component;
 public class SeekerDAOImpl implements SeekerDAO {
 
   private final SeekerRepository seekerRepository;
-  protected SeekerDAOImpl(SeekerRepository seekerRepository){
+  private final SeekerDocRepository docRepository;
+  protected SeekerDAOImpl(SeekerRepository seekerRepository, SeekerDocRepository docRepository){
     this.seekerRepository = seekerRepository;
+    this.docRepository = docRepository;
   }
 
   @Override
@@ -43,6 +47,15 @@ public class SeekerDAOImpl implements SeekerDAO {
 
   public void delete(String id){
     seekerRepository.deleteById(id);
+  }
+
+  @Override
+  public void deleteAll() {
+    docRepository.deleteAll();
+  }
+  @Override
+  public void saveAll(List<SeekerDocument> seekerDocuments) {
+    docRepository.saveAll(seekerDocuments);
   }
 
 }

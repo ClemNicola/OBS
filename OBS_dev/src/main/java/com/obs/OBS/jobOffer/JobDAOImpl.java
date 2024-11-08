@@ -21,11 +21,6 @@ public class JobDAOImpl implements JobDAO{
   }
 
   @Override
-  public Page<JobOfferDocument> getJobByTags(List<String> tag, Pageable pageable) {
-    return jobOfferDocRepository.findJobOfferDocumentByTagsIn(tag, pageable);
-  }
-
-  @Override
   public Page<JobOffer> getAllJobsByCompanyId(String companyId, Pageable pageable) {
     return repository.findJobOfferByCompanyId(companyId, pageable);
   }
@@ -43,6 +38,11 @@ public class JobDAOImpl implements JobDAO{
   @Override
   public Page<JobOfferDocument> getJobByCity(String city, Pageable pageable) {
     return jobOfferDocRepository.findJobOfferDocumentByCityContaining(city, pageable);
+  }
+
+  @Override
+  public Page<JobOfferDocument> getJobByCompanyName(String companyName, Pageable pageable) {
+    return jobOfferDocRepository.findJobOfferDocumentByCompanyNameContaining(companyName, pageable);
   }
 
   @Override
@@ -68,5 +68,20 @@ public class JobDAOImpl implements JobDAO{
   @Override
   public boolean existingJobOffer(String id) {
     return repository.existsById(id);
+  }
+
+  @Override
+  public void deleteAll() {
+    jobOfferDocRepository.deleteAll();
+  }
+
+  @Override
+  public void saveAll(List<JobOfferDocument> jobOfferDocuments) {
+    jobOfferDocRepository.saveAll(jobOfferDocuments);
+  }
+
+  @Override
+  public List<JobOffer> getAll() {
+    return (List<JobOffer>) repository.findAll();
   }
 }
