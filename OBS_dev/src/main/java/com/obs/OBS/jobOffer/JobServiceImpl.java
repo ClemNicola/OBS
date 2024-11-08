@@ -4,7 +4,6 @@ import com.obs.OBS.company.Company;
 import com.obs.OBS.company.CompanyDAO;
 import com.obs.OBS.elasticSearch.Document.JobOfferDocument;
 import jakarta.persistence.EntityNotFoundException;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -101,27 +100,26 @@ public class JobServiceImpl implements JobService{
      return jobOfferPage.map(mapper::toDTO);
   }
 
-
   @Override
-  public Page<JobDTO> getJobByTags(List<String> tags, Pageable pageable) {
-    Page<JobOfferDocument> jobOfferPage = dao.getJobByTags(tags, pageable);
-    return jobOfferPage.map(mapper::DocumentToDTO);
-  }
-
-  @Override
-  public Page<JobDTO> getJobBySkills(String skills, Pageable pageable) {
+  public Page<JobDTO> searchJobBySkills(String skills, Pageable pageable) {
     Page<JobOfferDocument> jobOfferPage = dao.getJobBySkills(skills, pageable);
     return jobOfferPage.map(mapper::DocumentToDTO);
   }
 
   @Override
-  public Page<JobDTO> getJobByTitle(String jobTitle, Pageable pageable) {
+  public Page<JobDTO> searchJobByCompanyName(String companyName, Pageable pageable) {
+    Page<JobOfferDocument> jobOfferDocuments = dao.getJobByCompanyName(companyName, pageable);
+    return jobOfferDocuments.map(mapper::DocumentToDTO);
+  }
+
+  @Override
+  public Page<JobDTO> searchJobByTitle(String jobTitle, Pageable pageable) {
     Page<JobOfferDocument> jobOfferPage = dao.getJobByTitle(jobTitle, pageable);
     return jobOfferPage.map(mapper::DocumentToDTO);
   }
 
   @Override
-  public Page<JobDTO> getJobByCity(String city, Pageable pageable) {
+  public Page<JobDTO> searchJobByCity(String city, Pageable pageable) {
     Page<JobOfferDocument> jobOfferDocuments = dao.getJobByCity(city, pageable);
     return jobOfferDocuments.map(mapper::DocumentToDTO);
   }

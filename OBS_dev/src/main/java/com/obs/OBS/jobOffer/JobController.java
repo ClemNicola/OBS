@@ -39,6 +39,38 @@ public class JobController {
     return service.getAllJobs(PageRequest.of(page, size));
   }
 
+  @GetMapping("/search")
+  public Page<JobDTO> searchJobByJobTitle(
+      @RequestParam String jobTitle,
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "30") int size){
+    return service.searchJobByTitle(jobTitle,PageRequest.of(page, size));
+  }
+
+  @GetMapping("/search/skills")
+  public Page<JobDTO> searchJobBySkills(
+      @RequestParam String skills,
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "30") int size){
+    return service.searchJobBySkills(skills,PageRequest.of(page, size));
+  }
+
+
+  @GetMapping("/search/city")
+  public Page<JobDTO> searchJobByCity(
+      @RequestParam String city,
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "30") int size){
+    return service.searchJobByCity(city,PageRequest.of(page, size));
+  }
+  @GetMapping("/search/company")
+  public Page<JobDTO> searchJobByCompanyName(
+      @RequestParam String companyName,
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "30") int size){
+    return service.searchJobByCompanyName(companyName,PageRequest.of(page, size));
+  }
+
   @PostMapping("/newJob")
   public JobDTO createJob(JobDTO dto){
     return service.createJobOffer(dto);
