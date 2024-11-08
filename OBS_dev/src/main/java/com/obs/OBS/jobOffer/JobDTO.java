@@ -41,6 +41,7 @@ public class JobDTO {
   @CollectionTable(name = "TAGS", joinColumns = @JoinColumn(name = "ID_JOB_OFFER"))
   private Set<String> tags;
   private Integer numberOfApplicants;
+  private String companyName;
 
   public JobDTO() {
   }
