@@ -7,9 +7,11 @@ import lombok.Data;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.elasticsearch.annotations.Setting;
 
 @Data
 @Document(indexName = "companies")
+@Setting(settingPath = "settings.json")
 public class CompanyDocument {
   @Id
   @Field(type = FieldType.Keyword)
@@ -54,3 +56,4 @@ public class CompanyDocument {
   @Field(type = FieldType.Object)
   private UserDocument user;
 }
+

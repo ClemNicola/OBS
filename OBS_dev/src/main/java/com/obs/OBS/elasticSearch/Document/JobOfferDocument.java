@@ -12,9 +12,11 @@ import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.elasticsearch.annotations.Setting;
 
 @Data
 @Document(indexName = "joboffers")
+@Setting(settingPath = "settings.json")
 public class JobOfferDocument {
   @Id
   @Field(type = FieldType.Keyword)
@@ -26,13 +28,13 @@ public class JobOfferDocument {
   @Field(type = FieldType.Text)
   private String description;
 
-  @Field(type = FieldType.Keyword, analyzer = "autocomplete_index", searchAnalyzer = "autocomplete_search")
+  @Field(type = FieldType.Text, analyzer = "autocomplete_index", searchAnalyzer = "autocomplete_search")
   private Set<String> skills;
 
   @Field(type = FieldType.Date, format = DateFormat.date_optional_time)
   private Date publicationDate;
 
-  @Field(type = FieldType.Keyword, analyzer = "autocomplete_index", searchAnalyzer = "autocomplete_search")
+  @Field(type = FieldType.Text, analyzer = "autocomplete_index", searchAnalyzer = "autocomplete_search")
   private String city;
 
   @Field(type = FieldType.Keyword)
@@ -65,7 +67,7 @@ public class JobOfferDocument {
   @Field(type = FieldType.Integer)
   private Integer numberOfApplicants;
 
-  @Field(type = FieldType.Keyword, analyzer = "autocomplete_index", searchAnalyzer = "autocomplete_search")
+  @Field(type = FieldType.Text, analyzer = "autocomplete_index", searchAnalyzer = "autocomplete_search")
   private String companyName;
 
   @Field(type = FieldType.Object)
