@@ -24,8 +24,7 @@ public class CompanyController {
   public CompanyDTO updateCompany(@PathVariable String id, @RequestBody CompanyDTO dto){
     return service.updateCompany(id, dto);
   }
-  //Ajouter la logique pour qu'une entreprise accède à toutes ses offres d'emploi.
-  //Ajouter logique pour qu'elle accède à une offre d'emploi.
+
   @DeleteMapping("/{id}")
   public void deleteById(@PathVariable String id){
     service.deleteById(id);

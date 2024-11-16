@@ -1,5 +1,6 @@
 package com.obs.OBS.jobSeeker;
 
+import com.obs.OBS.elasticSearch.Document.SeekerDocument;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,6 +37,18 @@ public class SeekerMapper {
     seeker.setDescription(dto.getDescription());
 
     return seeker;
+  }
+
+  public SeekerDocument toDocument (Seeker seeker){
+    SeekerDocument document = new SeekerDocument();
+   document.setFirstName(seeker.getFirstName());
+   document.setLastName(seeker.getLastName());
+   document.setPhoneNumber(seeker.getPhoneNumber());
+   document.setContractType(seeker.getContractType());
+   document.setDesiredLocations(seeker.getDesiredLocations());
+   document.setDescription(seeker.getDescription());
+
+   return document;
   }
 
   public List<SeekerDTO> toDtos (Collection<Seeker> entities){

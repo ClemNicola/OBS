@@ -1,5 +1,6 @@
 package com.obs.OBS.company;
 
+import com.obs.OBS.elasticSearch.Document.CompanyDocument;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
@@ -47,6 +48,25 @@ public class CompanyMapper {
     company.setAdminName(companyDTO.getAdminName());
 
     return company;
+  }
+
+  public CompanyDocument toDocument (Company company){
+    CompanyDocument document = new CompanyDocument();
+    document.setId(company.getId());
+    document.setName(company.getName());
+    document.setDescription(company.getDescription());
+    document.setSectors(company.getSectors());
+    document.setCompanyType(company.getCompanyType());
+    document.setAddress(company.getAddress());
+    document.setCity(company.getCity());
+    document.setCountry(company.getCountry());
+    document.setZip(company.getZip());
+    document.setWebUrl(company.getWebUrl());
+    document.setCompanyEmail(company.getCompanyEmail());
+    document.setSiret(company.getSiret());
+    document.setAdminName(company.getAdminName());
+
+    return document;
   }
 
   public List<CompanyDTO> toDTOs(List<Company> companies){
