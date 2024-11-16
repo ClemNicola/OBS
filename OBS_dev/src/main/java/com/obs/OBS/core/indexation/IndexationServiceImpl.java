@@ -32,7 +32,7 @@ public class IndexationServiceImpl implements IndexationService {
   private final SeekerMapper seekerMapper;
 
   @Override
-  @Scheduled(cron = "0 12 * * ?")
+  @Scheduled(cron = "0 */15 * * * *")
   public void indexFull() {
     indexCompanies();
     indexSeekers();
