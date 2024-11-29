@@ -26,7 +26,7 @@ public class JWTUtil {
   private int expirationMs;
   public String generateToken(User user) {
     Claims claims = Jwts.claims().setSubject(user.getEmail());
-    claims.put("role", user.getType());
+    claims.put("roles", Collections.singletonList(user.getType()));
     Date tokenCreateTime = new Date();
     Date tokenExpiration = new Date(tokenCreateTime.getTime() + expirationMs);
     return Jwts.builder()
@@ -45,8 +45,7 @@ public class JWTUtil {
 
   public List<String> getRolesFromJwt(String token){
       Claims claims = Jwts.parserBuilder().setSigningKey(key()).build().parseClaimsJws(token).getBody();
-      String role = claims.get("role", String.class);
-    return Collections.singletonList(role);
+      return claims.get("roles", List.class);
   }
 
   public boolean validateToken(String token){
