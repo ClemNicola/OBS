@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import com.obs.OBS.user.UserType;
 
 @Builder
 @AllArgsConstructor
@@ -14,8 +15,11 @@ import lombok.Setter;
 public class AuthResponse {
   private String token;
   private String type = "Bearer ";
+  private UserType userType;
 
-  public AuthResponse(String token) {
+  public AuthResponse(String token,UserType userType) {
+
     this.token = token;
+    this.userType = userType;
   }
 }

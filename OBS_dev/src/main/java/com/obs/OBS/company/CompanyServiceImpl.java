@@ -106,6 +106,6 @@ public class CompanyServiceImpl implements CompanyService {
 
     String jwt = util.generateToken(existingUser);
 
-    return new AuthResponse(jwt);
+    return new AuthResponse(jwt, existingUser.getType());
   }
 }

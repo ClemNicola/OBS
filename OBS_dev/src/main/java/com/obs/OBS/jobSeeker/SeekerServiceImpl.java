@@ -106,7 +106,7 @@ public class SeekerServiceImpl implements SeekerService {
     String jwt = util.generateToken(existingUser);
 
 
-    return new AuthResponse(jwt);
+    return new AuthResponse(jwt, existingUser.getType() );
   }
 
 }
