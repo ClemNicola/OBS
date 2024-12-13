@@ -29,25 +29,27 @@ public class JobServiceImpl implements JobService{
   @PreAuthorize("hasAuthority('COMPANY')")
   public JobDTO createJobOffer(String companyId, JobDTO dto){
 
-    JobOffer job = new JobOffer(
-        dto.getJobTitle(),
-        dto.getDescription(),
-        dto.getSkills(),
-        dto.getPublicationDate(),
-        dto.getCity(),
-        dto.getCountry(),
-        dto.getMode(),
-        dto.getContract(),
-        dto.getContractDuration(),
-        dto.getMinSalary(),
-        dto.getMaxSalary(),
-        dto.getExperience(),
-        dto.getStatus(),
-        dto.getTags(),
-        dto.getNumberOfApplicants(),
-        dto.getCompanyName(),
-        dto.getCompanyId()
-    );
+    Company company = companyDAO.getById(companyId)
+        .orElseThrow(() -> new EntityNotFoundException("Company not found with ID: " + companyId));
+
+    JobOffer job = new JobOffer();
+    job.setJobTitle(dto.getJobTitle());
+    job.setDescription(dto.getDescription());
+    job.setSkills(dto.getSkills());
+    job.setPublicationDate(dto.getPublicationDate());
+    job.setCity(dto.getCity());
+    job.setCountry(dto.getCountry());
+    job.setMode(dto.getMode());
+    job.setContract(dto.getContract());
+    job.setContractDuration(dto.getContractDuration());
+    job.setMinSalary(dto.getMinSalary());
+    job.setMaxSalary(dto.getMaxSalary());
+    job.setExperience(dto.getExperience());
+    job.setStatus(dto.getStatus() != null ? dto.getStatus() : STATUS.OPEN);
+    job.setTags(dto.getTags());
+    job.setNumberOfApplicants(dto.getNumberOfApplicants());
+    job.setCompany(company);
+
     JobOffer savedJob = dao.create(job);
     log.info("Job successfully created");
     return mapper.toDTO(savedJob);
