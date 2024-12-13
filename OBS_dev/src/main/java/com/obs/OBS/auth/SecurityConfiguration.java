@@ -24,10 +24,11 @@ public class SecurityConfiguration  {
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.csrf(csrf -> csrf.disable())
-        .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll()
-            .requestMatchers("/seeker/**").hasRole("SEEKER")
-            .requestMatchers("/company/**").hasRole("COMPANY")
-            .requestMatchers("/job/newJob", "/job/update/**", "/job/delete/**").hasRole("COMPANY")
+        .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**", "seeker/all").permitAll()
+            .requestMatchers("/seeker/{id}").hasAuthority("SEEKER")
+            .requestMatchers("/document/upload/**", "/document/all/**", "/document/delete/**").hasAuthority("SEEKER")
+            .requestMatchers("/company/**").hasAuthority("COMPANY")
+            .requestMatchers("/job/update/**", "/job/delete/**", "/job/create/**").hasAuthority("COMPANY")
             .anyRequest().authenticated())
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

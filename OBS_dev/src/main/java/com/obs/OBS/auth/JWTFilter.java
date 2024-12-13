@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,7 +18,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-
+@Slf4j
 @Component
 public class JWTFilter extends OncePerRequestFilter {
   @Autowired
@@ -36,17 +37,18 @@ public class JWTFilter extends OncePerRequestFilter {
         String email = util.getEmailFromJwt(token);
 
         List<String> roles = util.getRolesFromJwt(token);
-        List<GrantedAuthority> authorities = roles.stream().map(
-                role -> new SimpleGrantedAuthority("ROLE_" + role))
+        log.info("Token roles: " + roles);
+        List<GrantedAuthority> authorities = roles.stream().map(SimpleGrantedAuthority::new)
             .collect(Collectors.toList());
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-
+        log.info("UserDetails authorities: " + userDetails.getAuthorities());
+        log.info("Authorities: " + authorities);
         UsernamePasswordAuthenticationToken authenticationFilter =
             new UsernamePasswordAuthenticationToken(
                   userDetails, null, authorities);
 
         authenticationFilter.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
+        log.info("Final authentication: " + authenticationFilter.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authenticationFilter);
       }
 
