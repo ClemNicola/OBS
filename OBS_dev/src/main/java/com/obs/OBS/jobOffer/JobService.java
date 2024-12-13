@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface JobService {
   JobDTO getJobById(String id);
-  JobDTO createJobOffer(JobDTO dto);
+  JobDTO createJobOffer(String companyId, JobDTO dto);
   Page<JobDTO> getAllJobsByCompanyId(String companyId, Pageable pageable);
   Page<JobDTO> getAllJobs(Pageable pageable);
   void deleteJobOffer(String id);

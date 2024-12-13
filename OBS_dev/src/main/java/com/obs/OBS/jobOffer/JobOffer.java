@@ -77,4 +77,8 @@ public class JobOffer {
   public JobOffer() {
 
   }
+
+  public JobOffer(String jobTitle, String description, Set<String> skills, Date publicationDate, String city, String country, MODE mode, CONTRACT contract, String contractDuration, Integer minSalary, Integer maxSalary, EXPERIENCE experience,
+      STATUS status, Set<String> tags, Integer numberOfApplicants, String companyName, String companyId) {
+  }
 }

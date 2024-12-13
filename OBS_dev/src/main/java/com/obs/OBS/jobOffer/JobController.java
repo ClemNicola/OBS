@@ -71,9 +71,9 @@ public class JobController {
     return service.searchJobByCompanyName(companyName,PageRequest.of(page, size));
   }
 
-  @PostMapping("/newJob")
-  public JobDTO createJob(JobDTO dto){
-    return service.createJobOffer(dto);
+  @PostMapping("/create/{companyId}")
+  public JobDTO createJob(@PathVariable String companyId,@RequestBody JobDTO dto){
+    return service.createJobOffer(companyId, dto);
   }
 
   @PutMapping("/update/{id}")

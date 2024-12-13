@@ -12,6 +12,7 @@ public class JobMapper {
     JobDTO dto = new JobDTO();
     dto.setId(job.getId());
     dto.setCompanyId(job.getCompany().getId());
+    dto.setCompanyName(job.getCompany().getName());
     dto.setJobTitle(job.getJobTitle());
     dto.setDescription(job.getDescription());
     dto.setSkills(job.getSkills());

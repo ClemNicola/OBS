@@ -26,29 +26,27 @@ public class JobServiceImpl implements JobService{
   }
 
   @Override
-  @PreAuthorize("hasRole('COMPANY')")
-  public JobDTO createJobOffer(JobDTO dto){
-
-    if(dao.existingJobOffer(dto.getId())){
-      throw new IllegalArgumentException("A user already exists with this email");
-    }
+  @PreAuthorize("hasAuthority('COMPANY')")
+  public JobDTO createJobOffer(String companyId, JobDTO dto){
 
     JobOffer job = new JobOffer(
-       dto.getJobTitle(),
-       dto.getDescription(),
-       dto.getSkills(),
-       dto.getPublicationDate(),
-       dto.getCity(),
-       dto.getCountry(),
-       dto.getMode(),
-       dto.getContract(),
-       dto.getContractDuration(),
-       dto.getMinSalary(),
-       dto.getMaxSalary(),
-       dto.getExperience(),
-       dto.getStatus(),
-       dto.getTags(),
-       dto.getNumberOfApplicants()
+        dto.getJobTitle(),
+        dto.getDescription(),
+        dto.getSkills(),
+        dto.getPublicationDate(),
+        dto.getCity(),
+        dto.getCountry(),
+        dto.getMode(),
+        dto.getContract(),
+        dto.getContractDuration(),
+        dto.getMinSalary(),
+        dto.getMaxSalary(),
+        dto.getExperience(),
+        dto.getStatus(),
+        dto.getTags(),
+        dto.getNumberOfApplicants(),
+        dto.getCompanyName(),
+        dto.getCompanyId()
     );
     JobOffer savedJob = dao.create(job);
     log.info("Job successfully created");
@@ -56,7 +54,7 @@ public class JobServiceImpl implements JobService{
   }
 
   @Override
-  @PreAuthorize("hasRole('COMPANY')")
+  @PreAuthorize("hasAuthority('COMPANY')")
   public JobDTO updateJobOffer(String id, JobDTO dto) {
 
     JobOffer currentJobOffer = dao.getJobById(id).orElseThrow(() -> new EntityNotFoundException("Can't find job with id: " + id));
@@ -82,7 +80,7 @@ public class JobServiceImpl implements JobService{
   }
 
   @Override
-  @PreAuthorize("hasRole('COMPANY')")
+  @PreAuthorize("hasAuthority('COMPANY')")
   public void deleteJobOffer(String id) {
     dao.delete(id);
   }
