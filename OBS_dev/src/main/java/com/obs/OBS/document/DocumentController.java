@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path="/api/document")
+@RequestMapping(path="/document")
 public class DocumentController {
   private final DocumentService service;
 
@@ -37,7 +37,7 @@ public class DocumentController {
     return ResponseEntity.status(HttpStatus.OK).body("File uploaded successfully");
   }
 
-  @DeleteMapping("/{id}")
+  @DeleteMapping("/delete/{id}")
   public void deleteDocument(@PathVariable String id){
     service.deleteById(id);
   }
